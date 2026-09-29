@@ -4,103 +4,116 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#7A2D3A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Simulador Imobiliário</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <style>
-    :root{--bg:#f5f2ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#7A2D3A;--accent2:#0f4c5c;--border:#e5e7eb;--soft:#efe7e9;--shadow:0 8px 30px rgba(0,0,0,.07)}
-    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    button,input,select{font:inherit}.app{max-width:720px;margin:0 auto;padding:18px 14px 34px}.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.brand h1{font-size:22px;margin:4px 0 1px}.brand small{color:var(--muted)}
-    .pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#edf5f6;color:var(--accent2);font-size:11px;font-weight:800;letter-spacing:.2px}
-    .switch{display:grid;grid-template-columns:1fr 1fr;background:#ece8e5;border-radius:14px;padding:4px;margin:10px 0 14px}.switch button{border:0;background:transparent;padding:12px;border-radius:10px;font-weight:800;font-size:15px;color:var(--muted)}.switch button.active{background:var(--card);color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.hint{color:var(--muted);font-size:14px;margin:0 0 12px}.label{font-size:13px;font-weight:800;margin-bottom:6px;display:block}.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:14px;padding:0 12px;background:#fff}.money span{font-size:20px;color:var(--muted);margin-right:8px}.money input{border:0;outline:none;width:100%;font-size:28px;font-weight:800;padding:13px 0;background:transparent;color:var(--text);min-width:0}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.textinput,.select{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;color:var(--text);outline:none}.field{display:flex;align-items:center;border:1px solid var(--border);border-radius:12px;padding:0 10px;background:#fff}.field input{width:100%;border:0;outline:0;padding:12px 0;font-size:17px;background:transparent}.field span{color:var(--muted)}
-    .clientBlock{margin-bottom:14px}.clientBlock summary{font-size:14px;color:var(--accent2)}
-    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;min-width:0}.result strong{display:block;font-size:22px;margin-top:5px;line-height:1.1;overflow-wrap:anywhere}.result.primary{background:var(--soft);border-color:#d9c0c6}.result.primary strong{font-size:28px;color:var(--accent)}.result .k{font-size:13px;color:var(--muted)}.result .sub{font-size:12px;color:var(--muted);margin-top:6px}
-    .roundCard{background:#f7f7f7;border:1px solid var(--border);border-radius:14px;padding:12px;margin-top:12px}.roundRow{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;align-items:end}.roundInfo{font-size:12px;color:var(--muted);margin-top:8px}.roundInfo strong{color:var(--text)}
-    details.calc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:14px}summary{font-weight:800;cursor:pointer}.detailrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:14px}.detailrow:last-child{border-bottom:0}.note{font-size:12px;color:var(--muted);margin-top:10px}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:12px;padding:13px 14px;font-weight:800;font-size:15px;min-height:46px}.btn.primary{background:var(--accent);color:white}.btn.secondary{background:#e9eef0;color:var(--accent2)}.btn.ghost{background:#f1f1f1;color:var(--text)}
-    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}.hidden{display:none!important}.error{color:#b91c1c;font-size:13px;margin-top:8px}
-    dialog{border:0;border-radius:20px;width:min(92vw,620px);max-height:88vh;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.25);color:var(--text)}dialog::backdrop{background:rgba(0,0,0,.4)}.modalHead{padding:18px 18px 10px;border-bottom:1px solid var(--border)}.modalHead h2{margin:0;font-size:20px}.modalBody{padding:16px 18px;overflow:auto;max-height:64vh}.modalActions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 18px 18px;border-top:1px solid var(--border)}.summaryHero{border-radius:16px;background:var(--soft);padding:14px;margin:8px 0 14px}.summaryHero .big{font-size:28px;font-weight:900;color:var(--accent)}.summaryGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.summaryBox{border:1px solid var(--border);border-radius:12px;padding:10px}.summaryBox span{font-size:12px;color:var(--muted)}.summaryBox strong{display:block;margin-top:4px}.summaryMeta{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}
-    #printArea{display:none}
-    @media(max-width:560px){.app{padding:12px 10px 24px}.brand h1{font-size:19px}.grid2,.grid3,.results,.roundRow{grid-template-columns:1fr}.result strong{font-size:24px}.result.primary strong{font-size:30px}.switch button{font-size:14px;padding:11px 6px}.actions{grid-template-columns:1fr}.modalActions{grid-template-columns:1fr}.summaryGrid{grid-template-columns:1fr}.money input{font-size:26px}}
+    :root{--bg:#f5f2ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#7A2D3A;--accent2:#0f4c5c;--border:#e5e7eb;--soft:#f1e6e9;--soft2:#edf5f6;--shadow:0 8px 28px rgba(0,0,0,.06)}
+    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-tap-highlight-color:transparent}
+    button,input,select{font:inherit}.app{max-width:720px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 14px calc(30px + env(safe-area-inset-bottom))}.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.brand h1{font-size:23px;margin:5px 0 2px;line-height:1.12}.brand small{color:var(--muted);font-size:13px}.pill{display:inline-block;padding:4px 9px;border-radius:999px;background:var(--soft2);color:var(--accent2);font-size:11px;font-weight:800;letter-spacing:.2px}
+    .switch{display:grid;grid-template-columns:1fr 1fr;background:#ebe7e4;border-radius:15px;padding:4px;margin:8px 0 13px}.switch button{border:0;background:transparent;padding:12px 8px;border-radius:11px;font-weight:800;font-size:15px;color:var(--muted);min-height:46px}.switch button.active{background:var(--card);color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:13px}.hint{color:var(--muted);font-size:14px;margin:0 0 11px}.label{font-size:13px;font-weight:800;margin-bottom:6px;display:block}.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:15px;padding:0 12px;background:#fff}.money span{font-size:20px;color:var(--muted);margin-right:8px}.money input{border:0;outline:none;width:100%;font-size:29px;font-weight:850;padding:14px 0;background:transparent;color:var(--text);min-width:0}
+    details.card{padding:0;overflow:hidden}details.card>summary,details.calc>summary{list-style:none;cursor:pointer;min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;font-weight:800}details.card>summary::-webkit-details-marker,details.calc>summary::-webkit-details-marker{display:none}details.card>summary::after,details.calc>summary::after{content:'＋';color:var(--muted);font-size:18px}details[open]>summary::after{content:'−'}.detailsBody{padding:0 16px 16px;border-top:1px solid var(--border)}.summaryMetaLine{font-size:12px;color:var(--muted);font-weight:600;margin-left:auto;text-align:right}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.textinput,.select{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;color:var(--text);outline:none;min-height:46px}.field{display:flex;align-items:center;border:1px solid var(--border);border-radius:12px;padding:0 10px;background:#fff}.field input{width:100%;border:0;outline:0;padding:12px 0;font-size:17px;background:transparent;min-width:0}.field span{color:var(--muted)}
+    .heroResult{background:linear-gradient(180deg,#f5eaed 0%,#efe1e5 100%);border:1px solid #d8bec5;border-radius:20px;padding:18px;margin-bottom:10px;box-shadow:var(--shadow)}.heroResult .k{font-size:13px;color:var(--muted);font-weight:700}.heroResult strong{display:block;font-size:34px;line-height:1.08;color:var(--accent);margin:6px 0;overflow-wrap:anywhere}.heroResult .sub{font-size:12px;color:var(--muted);line-height:1.35}.miniGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}.miniResult{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:13px;min-width:0}.miniResult .k{font-size:12px;color:var(--muted)}.miniResult strong{display:block;font-size:21px;margin-top:5px;line-height:1.15;overflow-wrap:anywhere}.miniResult .sub{font-size:11px;color:var(--muted);margin-top:5px}
+    .configSummary{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%}.configSummaryText{font-size:12px;color:var(--muted);font-weight:650;text-align:right}.roundCard{background:#f7f7f7;border:1px solid var(--border);border-radius:14px;padding:12px;margin-top:12px}.roundRow{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;align-items:end}.roundInfo{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4}.roundInfo strong{color:var(--text)}
+    details.calc{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-top:13px;overflow:hidden}.calcBody{padding:0 14px 14px;border-top:1px solid var(--border)}.detailrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px}.detailrow:last-child{border-bottom:0}.note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.45}
+    .actions{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:13px}.btn{border:0;border-radius:13px;padding:13px 14px;font-weight:800;font-size:14px;min-height:48px}.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#e9eef0;color:var(--accent2)}.btn.ghost{background:#f1f1f1;color:var(--text)}.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:16px}.hidden{display:none!important}.error{color:#b91c1c;font-size:13px;margin-top:8px}
+    dialog{border:0;border-radius:20px;width:min(92vw,620px);max-height:88vh;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.25);color:var(--text)}dialog::backdrop{background:rgba(0,0,0,.4)}.modalHead{padding:18px 18px 10px;border-bottom:1px solid var(--border)}.modalHead h2{margin:0;font-size:20px}.modalBody{padding:16px 18px;overflow:auto;max-height:64vh}.modalActions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 18px 18px;border-top:1px solid var(--border)}.summaryHero{border-radius:16px;background:var(--soft);padding:14px;margin:8px 0 14px}.summaryHero .big{font-size:28px;font-weight:900;color:var(--accent)}.summaryGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.summaryBox{border:1px solid var(--border);border-radius:12px;padding:10px}.summaryBox span{font-size:12px;color:var(--muted)}.summaryBox strong{display:block;margin-top:4px}.summaryMeta{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}#printArea{display:none}
+    @media(max-width:560px){.app{padding-left:10px;padding-right:10px}.brand h1{font-size:21px}.grid2,.grid3,.roundRow{grid-template-columns:1fr}.heroResult strong{font-size:32px}.money input{font-size:27px}.actions{grid-template-columns:1fr}.modalActions{grid-template-columns:1fr}.summaryGrid{grid-template-columns:1fr}.configSummaryText{max-width:48%}}
+    @media(max-width:350px){.miniGrid{grid-template-columns:1fr}.switch button{font-size:13px}.heroResult strong{font-size:29px}}
     @media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;padding:22px;font-family:Arial,sans-serif;color:#111}#printArea h1{font-size:24px;margin:0 0 4px}#printArea .muted{color:#666;font-size:12px}#printArea .row{display:flex;justify-content:space-between;gap:20px;padding:8px 0;border-bottom:1px solid #ddd}#printArea .hero{font-size:26px;font-weight:700;margin:18px 0;padding:16px;border:1px solid #ccc;border-radius:10px}}
   </style>
 </head>
 <body>
 <div class="app">
-  <div class="brand"><div><span class="pill">Casal D’Consultores</span><h1>Simulador de Venda</h1><small>Comissão, IVA e margem de negociação</small></div></div>
+  <div class="brand"><div><span class="pill">Casal D’Consultores</span><h1>Simulador de Venda</h1><small>Apresentação simples para o proprietário</small></div></div>
 
   <div class="switch" aria-label="Modo de cálculo">
     <button id="tabNet" class="active" type="button">Quero receber</button>
     <button id="tabSale" type="button">Quero vender por</button>
   </div>
 
-  <details class="card clientBlock">
-    <summary>Identificação do cliente/imóvel (opcional)</summary>
-    <div class="grid2" style="margin-top:12px">
-      <div><label class="label" for="ownerName">Proprietário</label><input id="ownerName" class="textinput" type="text" placeholder="Nome do proprietário" autocomplete="off"></div>
-      <div><label class="label" for="propertyName">Imóvel</label><input id="propertyName" class="textinput" type="text" placeholder="Ex.: Moradia T3 — Aveiro" autocomplete="off"></div>
+  <details id="clientDetails" class="card">
+    <summary><span>Cliente / imóvel</span><span class="summaryMetaLine">Opcional</span></summary>
+    <div class="detailsBody">
+      <div class="grid2" style="margin-top:12px">
+        <div><label class="label" for="ownerName">Proprietário</label><input id="ownerName" class="textinput" type="text" placeholder="Nome do proprietário" autocomplete="off"></div>
+        <div><label class="label" for="propertyName">Imóvel</label><input id="propertyName" class="textinput" type="text" placeholder="Ex.: Moradia T3 — Aveiro" autocomplete="off"></div>
+      </div>
     </div>
   </details>
 
   <section class="card">
     <div id="modeNet">
-      <p class="hint">Indique quanto o proprietário pretende receber líquido.</p>
+      <p class="hint">Quanto pretende o proprietário receber líquido?</p>
       <label class="label" for="netInput">Valor líquido pretendido</label>
       <div class="money"><span>€</span><input id="netInput" type="text" value="400 000" inputmode="decimal" autocomplete="off"></div>
     </div>
     <div id="modeSale" class="hidden">
-      <p class="hint">Indique o preço efetivo de venda pretendido.</p>
+      <p class="hint">Por quanto pretende vender efetivamente o imóvel?</p>
       <label class="label" for="saleInput">Preço de venda</label>
       <div class="money"><span>€</span><input id="saleInput" type="text" value="450 000" inputmode="decimal" autocomplete="off"></div>
-    </div>
-
-    <div class="grid3">
-      <div><label class="label" for="commission">Comissão</label><div class="field"><input id="commission" type="number" min="0" max="100" step="0.1" value="5" inputmode="decimal"><span>%</span></div></div>
-      <div><label class="label" for="vat">IVA</label><div class="field"><input id="vat" type="number" min="0" max="100" step="1" value="23" inputmode="decimal"><span>%</span></div></div>
-      <div><label class="label" for="margin">Margem negociação</label><div class="field"><input id="margin" type="number" min="0" max="30" step="0.5" value="3" inputmode="decimal"><span>%</span></div></div>
-    </div>
-
-    <div class="roundCard">
-      <div class="roundRow">
-        <div>
-          <label class="label" for="rounding">Arredondar preço de anúncio</label>
-          <select id="rounding" class="select">
-            <option value="0">Sem arredondamento</option>
-            <option value="500">Para cima aos 500 €</option>
-            <option value="1000" selected>Para cima aos 1 000 €</option>
-            <option value="2500">Para cima aos 2 500 €</option>
-            <option value="5000">Para cima aos 5 000 €</option>
-          </select>
-        </div>
-        <div><span class="label">Preço ajustado</span><strong id="roundedAsk">—</strong></div>
-      </div>
-      <div id="roundInfo" class="roundInfo">—</div>
     </div>
     <div id="error" class="error"></div>
   </section>
 
-  <section id="netResults" class="results" aria-live="polite">
-    <div class="result"><div class="k">Proprietário recebe</div><strong id="rNet">—</strong><div class="sub">Valor líquido pretendido</div></div>
-    <div class="result"><div class="k">Preço mínimo de venda</div><strong id="rMin">—</strong><div class="sub">Sem margem de negociação</div></div>
-    <div class="result primary"><div class="k">Preço sugerido de anúncio</div><strong id="rAsk">—</strong><div id="rAskSub" class="sub">—</div></div>
+  <section id="netResults" aria-live="polite">
+    <div class="heroResult"><div class="k">Preço recomendado de anúncio</div><strong id="rAsk">—</strong><div id="rAskSub" class="sub">—</div></div>
+    <div class="miniGrid">
+      <div class="miniResult"><div class="k">Proprietário recebe</div><strong id="rNet">—</strong><div class="sub">Objetivo líquido</div></div>
+      <div class="miniResult"><div class="k">Preço mínimo de venda</div><strong id="rMin">—</strong><div class="sub">Sem margem de negociação</div></div>
+    </div>
   </section>
 
-  <section id="saleResults" class="results hidden" aria-live="polite">
-    <div class="result"><div class="k">Preço de venda</div><strong id="sSale">—</strong><div class="sub">Preço efetivo considerado</div></div>
-    <div class="result"><div class="k">Comissão + IVA</div><strong id="sCosts">—</strong><div class="sub">Encargo de mediação</div></div>
-    <div class="result primary"><div class="k">Proprietário recebe</div><strong id="sNet">—</strong><div id="sNetSub" class="sub">—</div></div>
+  <section id="saleResults" class="hidden" aria-live="polite">
+    <div class="heroResult"><div class="k">Proprietário recebe</div><strong id="sNet">—</strong><div id="sNetSub" class="sub">—</div></div>
+    <div class="miniGrid">
+      <div class="miniResult"><div class="k">Preço de venda</div><strong id="sSale">—</strong><div class="sub">Preço efetivo considerado</div></div>
+      <div class="miniResult"><div class="k">Comissão + IVA</div><strong id="sCosts">—</strong><div class="sub">Encargo de mediação</div></div>
+    </div>
   </section>
 
-  <details class="calc">
-    <summary>Ver detalhes do cálculo</summary>
-    <div class="detailrow"><span>Comissão sem IVA</span><strong id="dCommission">—</strong></div>
-    <div class="detailrow"><span>IVA sobre comissão</span><strong id="dVat">—</strong></div>
-    <div class="detailrow"><span>Total comissão + IVA</span><strong id="dTotal">—</strong></div>
-    <div class="detailrow"><span>Margem de negociação (€)</span><strong id="dMargin">—</strong></div>
-    <div class="detailrow"><span>Preço anúncio sem arredondar</span><strong id="dAskExact">—</strong></div>
-    <div class="detailrow"><span>Preço anúncio arredondado</span><strong id="dAskRounded">—</strong></div>
-    <div class="note">A comissão é calculada sobre o preço efetivo de venda. O IVA incide apenas sobre o valor da comissão. O arredondamento do preço de anúncio é feito para cima para não reduzir a margem prevista.</div>
+  <details id="configDetails" class="card">
+    <summary><span>Configuração da venda</span><span id="configSummary" class="configSummaryText">5% + IVA · margem 3%</span></summary>
+    <div class="detailsBody">
+      <div class="grid3" style="margin-top:12px">
+        <div><label class="label" for="commission">Comissão</label><div class="field"><input id="commission" type="number" min="0" max="100" step="0.1" value="5" inputmode="decimal"><span>%</span></div></div>
+        <div><label class="label" for="vat">IVA</label><div class="field"><input id="vat" type="number" min="0" max="100" step="1" value="23" inputmode="decimal"><span>%</span></div></div>
+        <div><label class="label" for="margin">Margem negociação</label><div class="field"><input id="margin" type="number" min="0" max="30" step="0.5" value="3" inputmode="decimal"><span>%</span></div></div>
+      </div>
+      <div class="roundCard">
+        <div class="roundRow">
+          <div>
+            <label class="label" for="rounding">Arredondar preço de anúncio</label>
+            <select id="rounding" class="select">
+              <option value="0">Sem arredondamento</option>
+              <option value="500">Para cima aos 500 €</option>
+              <option value="1000" selected>Para cima aos 1 000 €</option>
+              <option value="2500">Para cima aos 2 500 €</option>
+              <option value="5000">Para cima aos 5 000 €</option>
+            </select>
+          </div>
+          <div><span class="label">Preço ajustado</span><strong id="roundedAsk">—</strong></div>
+        </div>
+        <div id="roundInfo" class="roundInfo">—</div>
+      </div>
+    </div>
+  </details>
+
+  <details id="calcDetails" class="calc">
+    <summary>Detalhes do cálculo</summary>
+    <div class="calcBody">
+      <div class="detailrow"><span>Comissão sem IVA</span><strong id="dCommission">—</strong></div>
+      <div class="detailrow"><span>IVA sobre comissão</span><strong id="dVat">—</strong></div>
+      <div class="detailrow"><span>Total comissão + IVA</span><strong id="dTotal">—</strong></div>
+      <div class="detailrow"><span>Margem de negociação (€)</span><strong id="dMargin">—</strong></div>
+      <div class="detailrow"><span>Preço anúncio sem arredondar</span><strong id="dAskExact">—</strong></div>
+      <div class="detailrow"><span>Preço anúncio arredondado</span><strong id="dAskRounded">—</strong></div>
+      <div class="note">A comissão é calculada sobre o preço efetivo de venda. O IVA incide apenas sobre a comissão. O arredondamento é feito para cima para preservar a margem prevista.</div>
+    </div>
   </details>
 
   <div class="actions">
@@ -141,10 +154,10 @@
   const rawMoneyInput = el => { const n=parseMoney(el.value); if(Number.isFinite(n)) el.value=String(n).replace('.',','); };
   const roundUp = (value, step) => step>0 ? Math.ceil(value/step)*step : value;
 
-  const save = () => localStorage.setItem('simImobCfgV2', JSON.stringify({
+  const save = () => localStorage.setItem('simImobCfgV3', JSON.stringify({
     commission:num('commission'),vat:num('vat'),margin:num('margin'),rounding:num('rounding'),ownerName:$('ownerName').value,propertyName:$('propertyName').value
   }));
-  const restore = () => { try { const c=JSON.parse(localStorage.getItem('simImobCfgV2')||'{}'); if(Number.isFinite(c.commission)) $('commission').value=c.commission; if(Number.isFinite(c.vat)) $('vat').value=c.vat; if(Number.isFinite(c.margin)) $('margin').value=c.margin; if(Number.isFinite(c.rounding)) $('rounding').value=String(c.rounding); if(typeof c.ownerName==='string') $('ownerName').value=c.ownerName; if(typeof c.propertyName==='string') $('propertyName').value=c.propertyName; } catch(e){} };
+  const restore = () => { try { const c=JSON.parse(localStorage.getItem('simImobCfgV3')||localStorage.getItem('simImobCfgV2')||'{}'); if(Number.isFinite(c.commission)) $('commission').value=c.commission; if(Number.isFinite(c.vat)) $('vat').value=c.vat; if(Number.isFinite(c.margin)) $('margin').value=c.margin; if(Number.isFinite(c.rounding)) $('rounding').value=String(c.rounding); if(typeof c.ownerName==='string') $('ownerName').value=c.ownerName; if(typeof c.propertyName==='string') $('propertyName').value=c.propertyName; } catch(e){} };
 
   function setMode(m){
     mode=m;
@@ -158,6 +171,7 @@
     const c=num('commission')/100, vat=num('vat')/100, m=num('margin')/100, rounding=num('rounding');
     const rate=c*(1+vat), f=1-rate, fm=1-m;
     $('error').textContent='';
+    $('configSummary').textContent=`${plain(c*100)}% + IVA ${plain(vat*100)}% · margem ${plain(m*100)}%`;
     if([c,vat,m,rounding].some(x=>!Number.isFinite(x)||x<0) || f<=0 || fm<=0){$('error').textContent='Verifique os valores introduzidos.';return;}
 
     if(mode==='net'){
@@ -208,7 +222,7 @@
     el.addEventListener('input',calc);
     el.addEventListener('blur',()=>{formatMoneyInput(el);calc();});
   });
-  $('resetBtn').addEventListener('click',()=>{$('commission').value=5;$('vat').value=23;$('margin').value=3;$('rounding').value='1000';$('netInput').value='400 000';$('saleInput').value='450 000';$('ownerName').value='';$('propertyName').value='';localStorage.removeItem('simImobCfgV2');calc();});
+  $('resetBtn').addEventListener('click',()=>{$('commission').value=5;$('vat').value=23;$('margin').value=3;$('rounding').value='1000';$('netInput').value='400 000';$('saleInput').value='450 000';$('ownerName').value='';$('propertyName').value='';localStorage.removeItem('simImobCfgV3');localStorage.removeItem('simImobCfgV2');calc();});
   $('summaryBtn').addEventListener('click',makeSummary); $('closeSummary').addEventListener('click',()=>$('summaryDialog').close());
   $('printSummary').addEventListener('click',()=>window.print());
   $('shareSummary').addEventListener('click',async()=>{
@@ -221,7 +235,7 @@
   $('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true;});
   window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true;});
 
-  restore(); formatMoneyInput($('netInput')); formatMoneyInput($('saleInput')); setMode('net');
+  restore(); ['clientDetails','configDetails','calcDetails'].forEach(id=>$(id).open=false); formatMoneyInput($('netInput')); formatMoneyInput($('saleInput')); setMode('net');
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
