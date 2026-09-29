@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#7A2D3A" />
+  <title>Simulador Imobiliário</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root{--bg:#f5f2ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#7A2D3A;--accent2:#0f4c5c;--border:#e5e7eb;--good:#14532d;--shadow:0 8px 30px rgba(0,0,0,.07)}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .app{max-width:720px;margin:0 auto;padding:18px 14px 30px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.brand h1{font-size:22px;margin:0}.brand small{color:var(--muted)}
+    .switch{display:grid;grid-template-columns:1fr 1fr;background:#ece8e5;border-radius:14px;padding:4px;margin:10px 0 14px}.switch button{border:0;background:transparent;padding:12px;border-radius:10px;font-weight:700;font-size:15px;color:var(--muted)}.switch button.active{background:var(--card);color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.hint{color:var(--muted);font-size:14px;margin:0 0 12px}.label{font-size:13px;font-weight:700;margin-bottom:6px;display:block}.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:14px;padding:0 12px;background:#fff}.money span{font-size:20px;color:var(--muted);margin-right:8px}.money input{border:0;outline:none;width:100%;font-size:28px;font-weight:800;padding:13px 0;background:transparent;color:var(--text)}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.field{display:flex;align-items:center;border:1px solid var(--border);border-radius:12px;padding:0 10px;background:#fff}.field input{width:100%;border:0;outline:0;padding:12px 0;font-size:17px;background:transparent}.field span{color:var(--muted)}
+    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}.result strong{display:block;font-size:22px;margin-top:5px;line-height:1.1}.result.primary{background:#efe7e9;border-color:#d9c0c6}.result.primary strong{font-size:28px;color:var(--accent)}.result .k{font-size:13px;color:var(--muted)}.result .sub{font-size:12px;color:var(--muted);margin-top:6px}
+    details{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:14px}summary{font-weight:700;cursor:pointer}.detailrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:14px}.detailrow:last-child{border-bottom:0}.note{font-size:12px;color:var(--muted);margin-top:10px}
+    .actions{display:flex;gap:10px;margin-top:14px}.btn{flex:1;border:0;border-radius:12px;padding:13px 14px;font-weight:800;font-size:15px}.btn.primary{background:var(--accent);color:white}.btn.secondary{background:#e9eef0;color:var(--accent2)}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}.hidden{display:none!important}.error{color:#b91c1c;font-size:13px;margin-top:8px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf5f6;color:var(--accent2);font-size:11px;font-weight:700}
+    @media(max-width:560px){.app{padding:12px 10px 22px}.brand h1{font-size:19px}.grid3{grid-template-columns:1fr}.results{grid-template-columns:1fr}.result strong{font-size:24px}.result.primary strong{font-size:30px}.switch button{font-size:14px;padding:11px 6px}.actions{flex-direction:column}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="brand"><div><span class="pill">Casal D’Consultores</span><h1>Simulador de Venda</h1><small>Cálculo de comissão, IVA e negociação</small></div></div>
+
+  <div class="switch">
+    <button id="tabNet" class="active">Quero receber</button>
+    <button id="tabSale">Quero vender por</button>
+  </div>
+
+  <section class="card">
+    <div id="modeNet">
+      <p class="hint">Indique quanto o proprietário pretende receber líquido.</p>
+      <label class="label" for="netInput">Valor líquido pretendido</label>
+      <div class="money"><span>€</span><input id="netInput" type="number" min="0" step="1000" value="400000" inputmode="decimal"></div>
+    </div>
+    <div id="modeSale" class="hidden">
+      <p class="hint">Indique o preço efetivo de venda pretendido.</p>
+      <label class="label" for="saleInput">Preço de venda</label>
+      <div class="money"><span>€</span><input id="saleInput" type="number" min="0" step="1000" value="450000" inputmode="decimal"></div>
+    </div>
+
+    <div class="grid3">
+      <div><label class="label" for="commission">Comissão</label><div class="field"><input id="commission" type="number" min="0" max="100" step="0.1" value="5" inputmode="decimal"><span>%</span></div></div>
+      <div><label class="label" for="vat">IVA</label><div class="field"><input id="vat" type="number" min="0" max="100" step="1" value="23" inputmode="decimal"><span>%</span></div></div>
+      <div><label class="label" for="margin">Margem negociação</label><div class="field"><input id="margin" type="number" min="0" max="30" step="0.5" value="3" inputmode="decimal"><span>%</span></div></div>
+    </div>
+    <div id="error" class="error"></div>
+  </section>
+
+  <section id="netResults" class="results">
+    <div class="result"><div class="k">Proprietário recebe</div><strong id="rNet">—</strong><div class="sub">Valor líquido pretendido</div></div>
+    <div class="result"><div class="k">Preço mínimo de venda</div><strong id="rMin">—</strong><div class="sub">Sem margem de negociação</div></div>
+    <div class="result primary"><div class="k">Preço sugerido de anúncio</div><strong id="rAsk">—</strong><div id="rAskSub" class="sub">—</div></div>
+  </section>
+
+  <section id="saleResults" class="results hidden">
+    <div class="result"><div class="k">Preço de venda</div><strong id="sSale">—</strong><div class="sub">Preço efetivo considerado</div></div>
+    <div class="result"><div class="k">Comissão + IVA</div><strong id="sCosts">—</strong><div class="sub">Encargo de mediação</div></div>
+    <div class="result primary"><div class="k">Proprietário recebe</div><strong id="sNet">—</strong><div id="sNetSub" class="sub">—</div></div>
+  </section>
+
+  <details>
+    <summary>Ver detalhes do cálculo</summary>
+    <div class="detailrow"><span>Comissão sem IVA</span><strong id="dCommission">—</strong></div>
+    <div class="detailrow"><span>IVA sobre comissão</span><strong id="dVat">—</strong></div>
+    <div class="detailrow"><span>Total comissão + IVA</span><strong id="dTotal">—</strong></div>
+    <div class="detailrow"><span>Margem de negociação (€)</span><strong id="dMargin">—</strong></div>
+    <div class="note">A comissão é calculada sobre o preço efetivo de venda. O IVA incide apenas sobre o valor da comissão.</div>
+  </details>
+
+  <div class="actions">
+    <button class="btn secondary" id="resetBtn">Repor valores</button>
+    <button class="btn primary" id="installBtn" hidden>Instalar aplicação</button>
+  </div>
+  <div class="footer">Simulador indicativo para apoio à apresentação comercial.</div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let mode = 'net';
+  let deferredPrompt = null;
+  const euro = n => new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
+  const num = id => Number($(id).value);
+  const save = () => localStorage.setItem('simImobCfg', JSON.stringify({commission:num('commission'),vat:num('vat'),margin:num('margin')}));
+  const restore = () => { try { const c=JSON.parse(localStorage.getItem('simImobCfg')||'{}'); if(Number.isFinite(c.commission)) $('commission').value=c.commission; if(Number.isFinite(c.vat)) $('vat').value=c.vat; if(Number.isFinite(c.margin)) $('margin').value=c.margin; } catch(e){} };
+
+  function setMode(m){
+    mode=m;
+    $('tabNet').classList.toggle('active',m==='net'); $('tabSale').classList.toggle('active',m==='sale');
+    $('modeNet').classList.toggle('hidden',m!=='net'); $('modeSale').classList.toggle('hidden',m!=='sale');
+    $('netResults').classList.toggle('hidden',m!=='net'); $('saleResults').classList.toggle('hidden',m!=='sale');
+    calc();
+  }
+
+  function calc(){
+    const c=num('commission')/100, vat=num('vat')/100, m=num('margin')/100;
+    const rate=c*(1+vat), f=1-rate, fm=1-m;
+    $('error').textContent='';
+    if([c,vat,m].some(x=>!Number.isFinite(x)||x<0) || f<=0 || fm<=0){$('error').textContent='Verifique os valores introduzidos.';return;}
+    if(mode==='net'){
+      const net=num('netInput'); if(!Number.isFinite(net)||net<0){$('error').textContent='Introduza um valor válido.';return;}
+      const min=net/f, comm=min*c, v=comm*vat, total=comm+v, ask=min/fm, marginE=ask-min;
+      $('rNet').textContent=euro(net); $('rMin').textContent=euro(min); $('rAsk').textContent=euro(ask); $('rAskSub').textContent=m>0?`Inclui ${euro(marginE)} de margem de negociação`:'Sem margem de negociação';
+      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE);
+    } else {
+      const sale=num('saleInput'); if(!Number.isFinite(sale)||sale<0){$('error').textContent='Introduza um valor válido.';return;}
+      const comm=sale*c, v=comm*vat, total=comm+v, net=sale-total, ask=sale/fm, marginE=ask-sale;
+      $('sSale').textContent=euro(sale); $('sCosts').textContent=euro(total); $('sNet').textContent=euro(net); $('sNetSub').textContent=m>0?`Preço de anúncio equivalente: ${euro(ask)}`:'Sem margem de negociação';
+      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE);
+    }
+    save();
+  }
+
+  $('tabNet').addEventListener('click',()=>setMode('net')); $('tabSale').addEventListener('click',()=>setMode('sale'));
+  ['netInput','saleInput','commission','vat','margin'].forEach(id=>$(id).addEventListener('input',calc));
+  $('resetBtn').addEventListener('click',()=>{$('commission').value=5;$('vat').value=23;$('margin').value=3;$('netInput').value=400000;$('saleInput').value=450000;localStorage.removeItem('simImobCfg');calc();});
+
+  window.addEventListener('beforeinstallprompt', e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false;});
+  $('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true;});
+  window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true;});
+
+  restore(); setMode('net');
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>
