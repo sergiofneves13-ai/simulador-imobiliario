@@ -7,38 +7,52 @@
   <title>Simulador Imobiliário</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <style>
-    :root{--bg:#f5f2ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#7A2D3A;--accent2:#0f4c5c;--border:#e5e7eb;--good:#14532d;--shadow:0 8px 30px rgba(0,0,0,.07)}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .app{max-width:720px;margin:0 auto;padding:18px 14px 30px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.brand h1{font-size:22px;margin:0}.brand small{color:var(--muted)}
-    .switch{display:grid;grid-template-columns:1fr 1fr;background:#ece8e5;border-radius:14px;padding:4px;margin:10px 0 14px}.switch button{border:0;background:transparent;padding:12px;border-radius:10px;font-weight:700;font-size:15px;color:var(--muted)}.switch button.active{background:var(--card);color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.hint{color:var(--muted);font-size:14px;margin:0 0 12px}.label{font-size:13px;font-weight:700;margin-bottom:6px;display:block}.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:14px;padding:0 12px;background:#fff}.money span{font-size:20px;color:var(--muted);margin-right:8px}.money input{border:0;outline:none;width:100%;font-size:28px;font-weight:800;padding:13px 0;background:transparent;color:var(--text)}
-    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.field{display:flex;align-items:center;border:1px solid var(--border);border-radius:12px;padding:0 10px;background:#fff}.field input{width:100%;border:0;outline:0;padding:12px 0;font-size:17px;background:transparent}.field span{color:var(--muted)}
-    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}.result strong{display:block;font-size:22px;margin-top:5px;line-height:1.1}.result.primary{background:#efe7e9;border-color:#d9c0c6}.result.primary strong{font-size:28px;color:var(--accent)}.result .k{font-size:13px;color:var(--muted)}.result .sub{font-size:12px;color:var(--muted);margin-top:6px}
-    details{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:14px}summary{font-weight:700;cursor:pointer}.detailrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:14px}.detailrow:last-child{border-bottom:0}.note{font-size:12px;color:var(--muted);margin-top:10px}
-    .actions{display:flex;gap:10px;margin-top:14px}.btn{flex:1;border:0;border-radius:12px;padding:13px 14px;font-weight:800;font-size:15px}.btn.primary{background:var(--accent);color:white}.btn.secondary{background:#e9eef0;color:var(--accent2)}
-    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}.hidden{display:none!important}.error{color:#b91c1c;font-size:13px;margin-top:8px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf5f6;color:var(--accent2);font-size:11px;font-weight:700}
-    @media(max-width:560px){.app{padding:12px 10px 22px}.brand h1{font-size:19px}.grid3{grid-template-columns:1fr}.results{grid-template-columns:1fr}.result strong{font-size:24px}.result.primary strong{font-size:30px}.switch button{font-size:14px;padding:11px 6px}.actions{flex-direction:column}}
+    :root{--bg:#f5f2ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#7A2D3A;--accent2:#0f4c5c;--border:#e5e7eb;--soft:#efe7e9;--shadow:0 8px 30px rgba(0,0,0,.07)}
+    *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    button,input,select{font:inherit}.app{max-width:720px;margin:0 auto;padding:18px 14px 34px}.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.brand h1{font-size:22px;margin:4px 0 1px}.brand small{color:var(--muted)}
+    .pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#edf5f6;color:var(--accent2);font-size:11px;font-weight:800;letter-spacing:.2px}
+    .switch{display:grid;grid-template-columns:1fr 1fr;background:#ece8e5;border-radius:14px;padding:4px;margin:10px 0 14px}.switch button{border:0;background:transparent;padding:12px;border-radius:10px;font-weight:800;font-size:15px;color:var(--muted)}.switch button.active{background:var(--card);color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.hint{color:var(--muted);font-size:14px;margin:0 0 12px}.label{font-size:13px;font-weight:800;margin-bottom:6px;display:block}.money{display:flex;align-items:center;border:1px solid var(--border);border-radius:14px;padding:0 12px;background:#fff}.money span{font-size:20px;color:var(--muted);margin-right:8px}.money input{border:0;outline:none;width:100%;font-size:28px;font-weight:800;padding:13px 0;background:transparent;color:var(--text);min-width:0}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.textinput,.select{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;color:var(--text);outline:none}.field{display:flex;align-items:center;border:1px solid var(--border);border-radius:12px;padding:0 10px;background:#fff}.field input{width:100%;border:0;outline:0;padding:12px 0;font-size:17px;background:transparent}.field span{color:var(--muted)}
+    .clientBlock{margin-bottom:14px}.clientBlock summary{font-size:14px;color:var(--accent2)}
+    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.result{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;min-width:0}.result strong{display:block;font-size:22px;margin-top:5px;line-height:1.1;overflow-wrap:anywhere}.result.primary{background:var(--soft);border-color:#d9c0c6}.result.primary strong{font-size:28px;color:var(--accent)}.result .k{font-size:13px;color:var(--muted)}.result .sub{font-size:12px;color:var(--muted);margin-top:6px}
+    .roundCard{background:#f7f7f7;border:1px solid var(--border);border-radius:14px;padding:12px;margin-top:12px}.roundRow{display:grid;grid-template-columns:1.35fr .65fr;gap:10px;align-items:end}.roundInfo{font-size:12px;color:var(--muted);margin-top:8px}.roundInfo strong{color:var(--text)}
+    details.calc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-top:14px}summary{font-weight:800;cursor:pointer}.detailrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:14px}.detailrow:last-child{border-bottom:0}.note{font-size:12px;color:var(--muted);margin-top:10px}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:12px;padding:13px 14px;font-weight:800;font-size:15px;min-height:46px}.btn.primary{background:var(--accent);color:white}.btn.secondary{background:#e9eef0;color:var(--accent2)}.btn.ghost{background:#f1f1f1;color:var(--text)}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}.hidden{display:none!important}.error{color:#b91c1c;font-size:13px;margin-top:8px}
+    dialog{border:0;border-radius:20px;width:min(92vw,620px);max-height:88vh;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.25);color:var(--text)}dialog::backdrop{background:rgba(0,0,0,.4)}.modalHead{padding:18px 18px 10px;border-bottom:1px solid var(--border)}.modalHead h2{margin:0;font-size:20px}.modalBody{padding:16px 18px;overflow:auto;max-height:64vh}.modalActions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 18px 18px;border-top:1px solid var(--border)}.summaryHero{border-radius:16px;background:var(--soft);padding:14px;margin:8px 0 14px}.summaryHero .big{font-size:28px;font-weight:900;color:var(--accent)}.summaryGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.summaryBox{border:1px solid var(--border);border-radius:12px;padding:10px}.summaryBox span{font-size:12px;color:var(--muted)}.summaryBox strong{display:block;margin-top:4px}.summaryMeta{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+    #printArea{display:none}
+    @media(max-width:560px){.app{padding:12px 10px 24px}.brand h1{font-size:19px}.grid2,.grid3,.results,.roundRow{grid-template-columns:1fr}.result strong{font-size:24px}.result.primary strong{font-size:30px}.switch button{font-size:14px;padding:11px 6px}.actions{grid-template-columns:1fr}.modalActions{grid-template-columns:1fr}.summaryGrid{grid-template-columns:1fr}.money input{font-size:26px}}
+    @media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;padding:22px;font-family:Arial,sans-serif;color:#111}#printArea h1{font-size:24px;margin:0 0 4px}#printArea .muted{color:#666;font-size:12px}#printArea .row{display:flex;justify-content:space-between;gap:20px;padding:8px 0;border-bottom:1px solid #ddd}#printArea .hero{font-size:26px;font-weight:700;margin:18px 0;padding:16px;border:1px solid #ccc;border-radius:10px}}
   </style>
 </head>
 <body>
 <div class="app">
-  <div class="brand"><div><span class="pill">Casal D’Consultores</span><h1>Simulador de Venda</h1><small>Cálculo de comissão, IVA e negociação</small></div></div>
+  <div class="brand"><div><span class="pill">Casal D’Consultores</span><h1>Simulador de Venda</h1><small>Comissão, IVA e margem de negociação</small></div></div>
 
-  <div class="switch">
-    <button id="tabNet" class="active">Quero receber</button>
-    <button id="tabSale">Quero vender por</button>
+  <div class="switch" aria-label="Modo de cálculo">
+    <button id="tabNet" class="active" type="button">Quero receber</button>
+    <button id="tabSale" type="button">Quero vender por</button>
   </div>
+
+  <details class="card clientBlock">
+    <summary>Identificação do cliente/imóvel (opcional)</summary>
+    <div class="grid2" style="margin-top:12px">
+      <div><label class="label" for="ownerName">Proprietário</label><input id="ownerName" class="textinput" type="text" placeholder="Nome do proprietário" autocomplete="off"></div>
+      <div><label class="label" for="propertyName">Imóvel</label><input id="propertyName" class="textinput" type="text" placeholder="Ex.: Moradia T3 — Aveiro" autocomplete="off"></div>
+    </div>
+  </details>
 
   <section class="card">
     <div id="modeNet">
       <p class="hint">Indique quanto o proprietário pretende receber líquido.</p>
       <label class="label" for="netInput">Valor líquido pretendido</label>
-      <div class="money"><span>€</span><input id="netInput" type="number" min="0" step="1000" value="400000" inputmode="decimal"></div>
+      <div class="money"><span>€</span><input id="netInput" type="text" value="400 000" inputmode="decimal" autocomplete="off"></div>
     </div>
     <div id="modeSale" class="hidden">
       <p class="hint">Indique o preço efetivo de venda pretendido.</p>
       <label class="label" for="saleInput">Preço de venda</label>
-      <div class="money"><span>€</span><input id="saleInput" type="number" min="0" step="1000" value="450000" inputmode="decimal"></div>
+      <div class="money"><span>€</span><input id="saleInput" type="text" value="450 000" inputmode="decimal" autocomplete="off"></div>
     </div>
 
     <div class="grid3">
@@ -46,46 +60,91 @@
       <div><label class="label" for="vat">IVA</label><div class="field"><input id="vat" type="number" min="0" max="100" step="1" value="23" inputmode="decimal"><span>%</span></div></div>
       <div><label class="label" for="margin">Margem negociação</label><div class="field"><input id="margin" type="number" min="0" max="30" step="0.5" value="3" inputmode="decimal"><span>%</span></div></div>
     </div>
+
+    <div class="roundCard">
+      <div class="roundRow">
+        <div>
+          <label class="label" for="rounding">Arredondar preço de anúncio</label>
+          <select id="rounding" class="select">
+            <option value="0">Sem arredondamento</option>
+            <option value="500">Para cima aos 500 €</option>
+            <option value="1000" selected>Para cima aos 1 000 €</option>
+            <option value="2500">Para cima aos 2 500 €</option>
+            <option value="5000">Para cima aos 5 000 €</option>
+          </select>
+        </div>
+        <div><span class="label">Preço ajustado</span><strong id="roundedAsk">—</strong></div>
+      </div>
+      <div id="roundInfo" class="roundInfo">—</div>
+    </div>
     <div id="error" class="error"></div>
   </section>
 
-  <section id="netResults" class="results">
+  <section id="netResults" class="results" aria-live="polite">
     <div class="result"><div class="k">Proprietário recebe</div><strong id="rNet">—</strong><div class="sub">Valor líquido pretendido</div></div>
     <div class="result"><div class="k">Preço mínimo de venda</div><strong id="rMin">—</strong><div class="sub">Sem margem de negociação</div></div>
     <div class="result primary"><div class="k">Preço sugerido de anúncio</div><strong id="rAsk">—</strong><div id="rAskSub" class="sub">—</div></div>
   </section>
 
-  <section id="saleResults" class="results hidden">
+  <section id="saleResults" class="results hidden" aria-live="polite">
     <div class="result"><div class="k">Preço de venda</div><strong id="sSale">—</strong><div class="sub">Preço efetivo considerado</div></div>
     <div class="result"><div class="k">Comissão + IVA</div><strong id="sCosts">—</strong><div class="sub">Encargo de mediação</div></div>
     <div class="result primary"><div class="k">Proprietário recebe</div><strong id="sNet">—</strong><div id="sNetSub" class="sub">—</div></div>
   </section>
 
-  <details>
+  <details class="calc">
     <summary>Ver detalhes do cálculo</summary>
     <div class="detailrow"><span>Comissão sem IVA</span><strong id="dCommission">—</strong></div>
     <div class="detailrow"><span>IVA sobre comissão</span><strong id="dVat">—</strong></div>
     <div class="detailrow"><span>Total comissão + IVA</span><strong id="dTotal">—</strong></div>
     <div class="detailrow"><span>Margem de negociação (€)</span><strong id="dMargin">—</strong></div>
-    <div class="note">A comissão é calculada sobre o preço efetivo de venda. O IVA incide apenas sobre o valor da comissão.</div>
+    <div class="detailrow"><span>Preço anúncio sem arredondar</span><strong id="dAskExact">—</strong></div>
+    <div class="detailrow"><span>Preço anúncio arredondado</span><strong id="dAskRounded">—</strong></div>
+    <div class="note">A comissão é calculada sobre o preço efetivo de venda. O IVA incide apenas sobre o valor da comissão. O arredondamento do preço de anúncio é feito para cima para não reduzir a margem prevista.</div>
   </details>
 
   <div class="actions">
-    <button class="btn secondary" id="resetBtn">Repor valores</button>
-    <button class="btn primary" id="installBtn" hidden>Instalar aplicação</button>
+    <button class="btn secondary" id="resetBtn" type="button">Repor valores</button>
+    <button class="btn primary" id="summaryBtn" type="button">Gerar resumo para o cliente</button>
+    <button class="btn primary" id="installBtn" type="button" hidden>Instalar aplicação</button>
   </div>
   <div class="footer">Simulador indicativo para apoio à apresentação comercial.</div>
 </div>
+
+<dialog id="summaryDialog">
+  <div class="modalHead"><h2>Resumo da simulação</h2></div>
+  <div class="modalBody" id="summaryContent"></div>
+  <div class="modalActions">
+    <button class="btn ghost" id="closeSummary" type="button">Fechar</button>
+    <button class="btn secondary" id="printSummary" type="button">Guardar / imprimir PDF</button>
+    <button class="btn primary" id="shareSummary" type="button">Partilhar resumo</button>
+  </div>
+</dialog>
+<div id="printArea"></div>
 
 <script>
 (() => {
   const $ = id => document.getElementById(id);
   let mode = 'net';
   let deferredPrompt = null;
+  let state = {};
   const euro = n => new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
+  const euro0 = n => new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR',minimumFractionDigits:0,maximumFractionDigits:0}).format(n);
+  const plain = n => new Intl.NumberFormat('pt-PT',{maximumFractionDigits:2}).format(n);
   const num = id => Number($(id).value);
-  const save = () => localStorage.setItem('simImobCfg', JSON.stringify({commission:num('commission'),vat:num('vat'),margin:num('margin')}));
-  const restore = () => { try { const c=JSON.parse(localStorage.getItem('simImobCfg')||'{}'); if(Number.isFinite(c.commission)) $('commission').value=c.commission; if(Number.isFinite(c.vat)) $('vat').value=c.vat; if(Number.isFinite(c.margin)) $('margin').value=c.margin; } catch(e){} };
+  const parseMoney = v => {
+    const s=String(v??'').trim().replace(/\s/g,'').replace(/€/g,'').replace(/\./g,'').replace(',','.').replace(/[^0-9.-]/g,'');
+    const n=Number(s); return Number.isFinite(n)?n:NaN;
+  };
+  const moneyVal = id => parseMoney($(id).value);
+  const formatMoneyInput = el => { const n=parseMoney(el.value); if(Number.isFinite(n)) el.value=plain(n); };
+  const rawMoneyInput = el => { const n=parseMoney(el.value); if(Number.isFinite(n)) el.value=String(n).replace('.',','); };
+  const roundUp = (value, step) => step>0 ? Math.ceil(value/step)*step : value;
+
+  const save = () => localStorage.setItem('simImobCfgV2', JSON.stringify({
+    commission:num('commission'),vat:num('vat'),margin:num('margin'),rounding:num('rounding'),ownerName:$('ownerName').value,propertyName:$('propertyName').value
+  }));
+  const restore = () => { try { const c=JSON.parse(localStorage.getItem('simImobCfgV2')||'{}'); if(Number.isFinite(c.commission)) $('commission').value=c.commission; if(Number.isFinite(c.vat)) $('vat').value=c.vat; if(Number.isFinite(c.margin)) $('margin').value=c.margin; if(Number.isFinite(c.rounding)) $('rounding').value=String(c.rounding); if(typeof c.ownerName==='string') $('ownerName').value=c.ownerName; if(typeof c.propertyName==='string') $('propertyName').value=c.propertyName; } catch(e){} };
 
   function setMode(m){
     mode=m;
@@ -96,33 +155,73 @@
   }
 
   function calc(){
-    const c=num('commission')/100, vat=num('vat')/100, m=num('margin')/100;
+    const c=num('commission')/100, vat=num('vat')/100, m=num('margin')/100, rounding=num('rounding');
     const rate=c*(1+vat), f=1-rate, fm=1-m;
     $('error').textContent='';
-    if([c,vat,m].some(x=>!Number.isFinite(x)||x<0) || f<=0 || fm<=0){$('error').textContent='Verifique os valores introduzidos.';return;}
+    if([c,vat,m,rounding].some(x=>!Number.isFinite(x)||x<0) || f<=0 || fm<=0){$('error').textContent='Verifique os valores introduzidos.';return;}
+
     if(mode==='net'){
-      const net=num('netInput'); if(!Number.isFinite(net)||net<0){$('error').textContent='Introduza um valor válido.';return;}
-      const min=net/f, comm=min*c, v=comm*vat, total=comm+v, ask=min/fm, marginE=ask-min;
-      $('rNet').textContent=euro(net); $('rMin').textContent=euro(min); $('rAsk').textContent=euro(ask); $('rAskSub').textContent=m>0?`Inclui ${euro(marginE)} de margem de negociação`:'Sem margem de negociação';
-      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE);
+      const net=moneyVal('netInput'); if(!Number.isFinite(net)||net<0){$('error').textContent='Introduza um valor válido.';return;}
+      const min=net/f, comm=min*c, v=comm*vat, total=comm+v, ask=min/fm, rounded=roundUp(ask,rounding), marginE=ask-min;
+      const saleAfterDiscount=rounded*(1-m), commRounded=saleAfterDiscount*c, vatRounded=commRounded*vat, netAtRounded=saleAfterDiscount-commRounded-vatRounded;
+      $('rNet').textContent=euro(net); $('rMin').textContent=euro(min); $('rAsk').textContent=euro(rounded); $('rAskSub').textContent=m>0?`Permite até ${plain(m*100)}% de negociação mantendo o objetivo`:'Sem margem de negociação';
+      $('roundedAsk').textContent=euro0(rounded); $('roundInfo').innerHTML=rounding>0?`Preço técnico: <strong>${euro(ask)}</strong> · arredondado para cima. Se negociar ${plain(m*100)}%, o líquido estimado fica em <strong>${euro(netAtRounded)}</strong>.`:`Sem arredondamento. Preço técnico: <strong>${euro(ask)}</strong>.`;
+      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE); $('dAskExact').textContent=euro(ask); $('dAskRounded').textContent=euro(rounded);
+      state={mode,net,min,comm,v,total,ask,rounded,marginE,netAtRounded,saleAfterDiscount,c,vat,m};
     } else {
-      const sale=num('saleInput'); if(!Number.isFinite(sale)||sale<0){$('error').textContent='Introduza um valor válido.';return;}
-      const comm=sale*c, v=comm*vat, total=comm+v, net=sale-total, ask=sale/fm, marginE=ask-sale;
-      $('sSale').textContent=euro(sale); $('sCosts').textContent=euro(total); $('sNet').textContent=euro(net); $('sNetSub').textContent=m>0?`Preço de anúncio equivalente: ${euro(ask)}`:'Sem margem de negociação';
-      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE);
+      const sale=moneyVal('saleInput'); if(!Number.isFinite(sale)||sale<0){$('error').textContent='Introduza um valor válido.';return;}
+      const comm=sale*c, v=comm*vat, total=comm+v, net=sale-total, ask=sale/fm, rounded=roundUp(ask,rounding), marginE=ask-sale;
+      const saleAfterDiscount=rounded*(1-m), commRounded=saleAfterDiscount*c, vatRounded=commRounded*vat, netAtRounded=saleAfterDiscount-commRounded-vatRounded;
+      $('sSale').textContent=euro(sale); $('sCosts').textContent=euro(total); $('sNet').textContent=euro(net); $('sNetSub').textContent=m>0?`Preço de anúncio recomendado: ${euro(rounded)}`:'Sem margem de negociação';
+      $('roundedAsk').textContent=euro0(rounded); $('roundInfo').innerHTML=rounding>0?`Preço técnico: <strong>${euro(ask)}</strong> · arredondado para cima. Se negociar ${plain(m*100)}%, o preço efetivo estimado fica em <strong>${euro(saleAfterDiscount)}</strong>.`:`Sem arredondamento. Preço técnico: <strong>${euro(ask)}</strong>.`;
+      $('dCommission').textContent=euro(comm); $('dVat').textContent=euro(v); $('dTotal').textContent=euro(total); $('dMargin').textContent=euro(marginE); $('dAskExact').textContent=euro(ask); $('dAskRounded').textContent=euro(rounded);
+      state={mode,sale,net,comm,v,total,ask,rounded,marginE,netAtRounded,saleAfterDiscount,c,vat,m};
     }
     save();
   }
 
+  function makeSummary(){
+    calc();
+    const owner=$('ownerName').value.trim(), property=$('propertyName').value.trim();
+    const meta=[owner?`Proprietário: ${owner}`:'',property?`Imóvel: ${property}`:''].filter(Boolean).join(' · ');
+    let hero='', rows=[], share='';
+    if(mode==='net'){
+      hero=`Preço sugerido de anúncio: ${euro(state.rounded)}`;
+      rows=[['Objetivo líquido do proprietário',euro(state.net)],['Preço mínimo de venda',euro(state.min)],['Margem de negociação',plain(state.m*100)+'%'],['Comissão',plain(state.c*100)+'% + IVA'],['Preço técnico antes do arredondamento',euro(state.ask)],['Preço sugerido de anúncio',euro(state.rounded)]];
+      share=`Simulação de venda${property?' — '+property:''}\n${owner?'Proprietário: '+owner+'\n':''}Objetivo líquido: ${euro(state.net)}\nPreço mínimo de venda: ${euro(state.min)}\nPreço sugerido de anúncio: ${euro(state.rounded)}\nComissão: ${plain(state.c*100)}% + IVA\nMargem de negociação: ${plain(state.m*100)}%`;
+    } else {
+      hero=`Proprietário recebe: ${euro(state.net)}`;
+      rows=[['Preço efetivo de venda',euro(state.sale)],['Comissão + IVA',euro(state.total)],['Líquido estimado do proprietário',euro(state.net)],['Margem de negociação',plain(state.m*100)+'%'],['Preço técnico de anúncio',euro(state.ask)],['Preço sugerido de anúncio',euro(state.rounded)]];
+      share=`Simulação de venda${property?' — '+property:''}\n${owner?'Proprietário: '+owner+'\n':''}Preço de venda: ${euro(state.sale)}\nComissão + IVA: ${euro(state.total)}\nLíquido do proprietário: ${euro(state.net)}\nPreço sugerido de anúncio: ${euro(state.rounded)}\nMargem de negociação: ${plain(state.m*100)}%`;
+    }
+    $('summaryContent').innerHTML=`${meta?`<div class="summaryMeta">${meta}</div>`:''}<div class="summaryHero"><div class="big">${hero}</div></div><div class="summaryGrid">${rows.map(r=>`<div class="summaryBox"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('')}</div><div class="note" style="margin-top:14px">Simulação indicativa. A comissão é calculada sobre o preço efetivo de venda e o IVA incide sobre a comissão.</div>`;
+    $('printArea').innerHTML=`<h1>Casal D’Consultores — Simulação de Venda</h1>${meta?`<div class="muted">${meta}</div>`:''}<div class="hero">${hero}</div>${rows.map(r=>`<div class="row"><span>${r[0]}</span><strong>${r[1]}</strong></div>`).join('')}<p class="muted" style="margin-top:18px">Simulação indicativa. A comissão é calculada sobre o preço efetivo de venda e o IVA incide sobre a comissão.</p>`;
+    state.shareText=share;
+    if(typeof $('summaryDialog').showModal==='function') $('summaryDialog').showModal();
+  }
+
   $('tabNet').addEventListener('click',()=>setMode('net')); $('tabSale').addEventListener('click',()=>setMode('sale'));
-  ['netInput','saleInput','commission','vat','margin'].forEach(id=>$(id).addEventListener('input',calc));
-  $('resetBtn').addEventListener('click',()=>{$('commission').value=5;$('vat').value=23;$('margin').value=3;$('netInput').value=400000;$('saleInput').value=450000;localStorage.removeItem('simImobCfg');calc();});
+  ['commission','vat','margin','rounding','ownerName','propertyName'].forEach(id=>$(id).addEventListener('input',calc));
+  ['netInput','saleInput'].forEach(id=>{
+    const el=$(id);
+    el.addEventListener('focus',()=>rawMoneyInput(el));
+    el.addEventListener('input',calc);
+    el.addEventListener('blur',()=>{formatMoneyInput(el);calc();});
+  });
+  $('resetBtn').addEventListener('click',()=>{$('commission').value=5;$('vat').value=23;$('margin').value=3;$('rounding').value='1000';$('netInput').value='400 000';$('saleInput').value='450 000';$('ownerName').value='';$('propertyName').value='';localStorage.removeItem('simImobCfgV2');calc();});
+  $('summaryBtn').addEventListener('click',makeSummary); $('closeSummary').addEventListener('click',()=>$('summaryDialog').close());
+  $('printSummary').addEventListener('click',()=>window.print());
+  $('shareSummary').addEventListener('click',async()=>{
+    const txt=state.shareText||'';
+    try{ if(navigator.share){await navigator.share({title:'Simulação de Venda',text:txt});} else if(navigator.clipboard){await navigator.clipboard.writeText(txt);$('shareSummary').textContent='Resumo copiado';setTimeout(()=>$('shareSummary').textContent='Partilhar resumo',1600);} }
+    catch(e){}
+  });
 
   window.addEventListener('beforeinstallprompt', e=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false;});
   $('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').hidden=true;});
   window.addEventListener('appinstalled',()=>{$('installBtn').hidden=true;});
 
-  restore(); setMode('net');
+  restore(); formatMoneyInput($('netInput')); formatMoneyInput($('saleInput')); setMode('net');
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
